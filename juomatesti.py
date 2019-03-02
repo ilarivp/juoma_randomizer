@@ -304,3 +304,5 @@ def show_status():
             title_screen()
 
 startscreen()  # initiates screen
+
+# TODO(): Juomalistan juomien printtaus allekkain 
