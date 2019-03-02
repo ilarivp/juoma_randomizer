@@ -1,9 +1,7 @@
 import numpy as np
 import os
 import textwrap
-import cmd
 import sys
-import time
 
 screen_width = 100
 
@@ -56,14 +54,14 @@ def lisajuomari(startteri = False):
         print('Nimi', nimi, 'on jo käytössä.')
         nimi = input('Anna juomarin nimi: ').lower()
     juomari_temp.name = nimi
-    lisajuoma = 'y'
     juomat = []
-    while lisajuoma == 'y':
-        juoma = input("Lisää juoma: ").lower()
-        juomat.append(juoma)
-        lisajuoma = input("Lisätäänkö toinen juoma? [y/n]: ")
-        while lisajuoma not in ['y', 'n']:
-            lisajuoma = input("Lisätäänkö toinen juoma? [y/n]: ")
+    juoma = input("Lisää juoma: ").lower()
+    juomat.append(juoma)
+    lisajuoma = 'y'
+    while lisajuoma != 'n':    
+        lisajuoma = input("Lisää juoma tai siirry seuraavaan [n]: ").lower()
+        if lisajuoma != 'n' and lisajuoma not in juomat:
+            juomat.append(lisajuoma)
     if 'vesi' in juomat:
         juomat.remove('vesi')
     juomat.append('vesi')
@@ -237,7 +235,7 @@ def add_remove_menu_selections():
 
 
 def title_screen():
-    os.system('cls')
+    os.system('cls||clear')
     print("############################")
     print("#  JUOMAGENERAATTORI 666   #")
     print("# 1. Juomalista            #")
@@ -249,7 +247,7 @@ def title_screen():
     title_screen_selections()
 
 def add_remove_menu():
-    os.system('cls')
+    os.system('cls||clear')
     print("###########################")
     print("#  JUOMAGENERAATTORI 666  #")
     print("# 1. Uusi juomari         #")    
@@ -261,14 +259,15 @@ def add_remove_menu():
     add_remove_menu_selections()
 
 def show_drinks():
-    os.system('cls')
+    os.system('cls||clear')
     print("#########################")
     print("# JUOMAGENERAATTORI 666 #")
     print("#########################")
     print("# Juomalistat:           ")
     for player in juomarit:
         print("# ", player.name)
-        print("# ", player.juomalista)
+        juomatext = textwrap.dedent(", ".join(player.juomalista)).strip()
+        print("# ", textwrap.fill(juomatext, width = 20, initial_indent='', subsequent_indent='#  '))
         print("#                         ")
     print("# 0. Return                ")
     print("#########################")
@@ -282,7 +281,7 @@ def show_drinks():
             title_screen()
 
 def show_status():
-    os.system('cls')
+    os.system('cls||clear')
     print("#########################")
     print("# JUOMAGENERAATTORI 666 #")
     print("# Tilanne:               ")
