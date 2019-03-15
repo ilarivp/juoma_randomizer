@@ -28,6 +28,21 @@ class Ui_MainWindow(object):
         self.juomarit[idx].lisaa_juoma(drink)
         self.lineEdit.clear()
         print(self.juomarit[idx].juomalista)
+    
+    def pelaa_painettu(self):
+        self.pelaa_wdg.show()
+        for juomari in self.juomarit:
+            self.comboBox.additem(juomari.name)
+    
+    def arvo_juoma(self):
+        idx = 0
+        for i in range(self.juomarit):
+            if self.juomarit[i].name == self.pelaaja_menu.currentText():
+                idx = i
+        juomari = self.juomarit[idx]
+        juomari, juoma = pelaa(juomari)
+        self.juomarit[idx] = juomari
+        self.print_juoma.setText(juoma)
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -136,6 +151,8 @@ class Ui_MainWindow(object):
         self.mainPage.hide()
         self.addPlayer.clicked.connect(self.newPlayer)
         self.pushButton.clicked.connect(self.newDrink)
+        self.pelaa_btn.clicked.connect(self.pelaa_painettu)
+
 
     
 

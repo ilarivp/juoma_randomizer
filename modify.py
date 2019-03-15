@@ -35,4 +35,4 @@ def pelaa(juomari):
         juomari.vedet += 1
     else:
         juomari.juomat += 1
-    return(juomari)
+    return(juomari, juoma)
