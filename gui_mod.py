@@ -7,11 +7,32 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from modify import *
+
 
 class Ui_MainWindow(object):
+    def newPlayer(self):
+        self.juomarit = lisaa_pelaaja(self.juomarit, self.playerName.text())
+        print(self.juomarit[len(self.juomarit)-1].name)
+        self.InitialDrinkPage.show()
+        self.InitialPlayerPage.hide()
+        self.comboBox.addItem(self.juomarit[len(self.juomarit)-1].name)
+
+    def newDrink(self):
+        playername = self.comboBox.currentText()
+        drink = self.lineEdit.text()
+        idx = 0
+        for i in range(len(self.juomarit)):
+            if self.juomarit[idx].name == playername:
+                idx = i
+        self.juomarit[idx].lisaa_juoma(drink)
+        self.lineEdit.clear()
+        print(self.juomarit[idx].juomalista)
+
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 600)
+        self.juomarit = []
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.stackedWidget = QtWidgets.QStackedWidget(self.centralwidget)
@@ -110,6 +131,14 @@ class Ui_MainWindow(object):
         self.stackedWidget.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+        self.InitialPlayerPage.show()
+        self.InitialDrinkPage.hide()
+        self.mainPage.hide()
+        self.addPlayer.clicked.connect(self.newPlayer)
+        self.pushButton.clicked.connect(self.newDrink)
+
+    
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
@@ -128,6 +157,8 @@ class Ui_MainWindow(object):
         self.menuFile.setTitle(_translate("MainWindow", "File"))
         self.actionUusi_peli.setText(_translate("MainWindow", "Uusi peli"))
         self.actionLopeta_peli.setText(_translate("MainWindow", "Lopeta peli"))
+
+    
 
 
 if __name__ == "__main__":
