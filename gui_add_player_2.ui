@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="InitialPlayerPage">
      <widget class="QPushButton" name="addPlayer">
@@ -61,6 +61,19 @@
         <width>113</width>
         <height>25</height>
        </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="seuraava_btn">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>210</y>
+        <width>111</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Seuraava</string>
       </property>
      </widget>
     </widget>
